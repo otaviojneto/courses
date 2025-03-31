@@ -8,8 +8,8 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
+} from "@/components/Ui/breadcrumb";
+import { Button } from "@/components/Ui/button";
 import { useCourseStore } from "@/stores/CourseStore";
 import Image from "next/image";
 import Link from "next/link";

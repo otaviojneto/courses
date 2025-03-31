@@ -5,9 +5,9 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/components/Ui/dropdown-menu";
 import { useCourseStore } from "@/stores/CourseStore";
-import { getInitials } from "@/utils/getInitials";
+import { getInitials } from "@/utils/getInitials/getInitials";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";

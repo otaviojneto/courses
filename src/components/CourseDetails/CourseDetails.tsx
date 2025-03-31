@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/Ui/button";
 import { useCourseDetails } from "@/hooks/useCourseDetails";
 import { Course } from "@/types";
 import { formatDate } from "@/utils/formatDate";
@@ -17,7 +17,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "../ui/breadcrumb";
+} from "../Ui/breadcrumb";
 
 export type CourseDetailsProps = {
   course: Course;
@@ -72,10 +72,12 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
                 <p className="text-xs text-muted-foreground">
                   Você já possui este curso.
                 </p>
-                <p className="text-xs text-muted-foreground">
-                  data da adesão:{" "}
-                  {dateJoined && formatDate(dateJoined, { dateStyle: "short" })}
-                </p>
+                {dateJoined && (
+                  <p className="text-xs text-muted-foreground">
+                    data da adesão:{" "}
+                    {formatDate(dateJoined, { dateStyle: "short" })}
+                  </p>
+                )}
               </>
             ) : (
               <p className="text-xs text-muted-foreground">

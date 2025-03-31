@@ -11,6 +11,6 @@ export function formatPrice(
     style: "currency",
     currency: options.currency || "BRL",
     notation: options.notation || "standard",
-    maximumFractionDigits: 2,
+    maximumFractionDigits: options.notation === "compact" ? 1 : 2,
   }).format(value);
 }
