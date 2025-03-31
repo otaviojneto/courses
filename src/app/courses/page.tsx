@@ -35,8 +35,8 @@ const CoursesPage: React.FC = () => {
     <div className="py-10">
       <h1 className="text-2xl font-bold ">Conheça Nossos Cursos</h1>
 
-      <div className="flex w-full gap-4 pt-10 mb-4">
-        <div className="w-full">
+      <div className="flex w-full gap-6 pt-10 mb-4 md:gap-4">
+        <div className="w-full max-w-[368px]">
           <Input
             placeholder="Buscar cursos"
             onChange={(e) => setSearchTerm(e.target.value)}

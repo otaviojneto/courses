@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import favorireHeart from "../../../public/icons/heartFavorite.svg";
 import favorireHeartOutlined from "../../../public/icons/heartFavoriteOutlined.svg";
+import chevronRight from "../../../public/icons/chevronRight.svg";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -84,13 +85,32 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
           </div>
 
           {isPurchased ? (
-            <Button asChild>
+            <Button asChild className="group transition-all duration-300">
               <Link href={`/courses/${course.id}/player`}>
                 Continuar Estudando
+                <Image
+                  width={10}
+                  height={10}
+                  src={chevronRight}
+                  alt="chevron"
+                  className="ml-1 inline-block transition-all duration-300 group-hover:translate-x-1 group-active:translate-x-2"
+                />
               </Link>
             </Button>
           ) : (
-            <Button onClick={() => alert("compar curso")}>Comprar Curso</Button>
+            <Button
+              className="group transition-all duration-300"
+              onClick={() => alert("compar curso")}
+            >
+              Comprar Curso
+              <Image
+                className="ml-1 inline-block transition-all duration-300 group-hover:translate-x-1 group-active:translate-x-2"
+                src={chevronRight}
+                width={10}
+                height={10}
+                alt="chevron"
+              />
+            </Button>
           )}
         </div>
       </div>
