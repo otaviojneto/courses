@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "@/components/REfect/button";
+import { Button } from "@/components/Ui/button";
 import { useCourseStore } from "@/stores/CourseStore";
 import Link from "next/link";
-import { Badge } from "@/components/REfect/badge";
+import { Badge } from "@/components/Ui/badge";
 
 export type Course = {
   id: number;
