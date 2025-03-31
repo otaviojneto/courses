@@ -53,12 +53,7 @@ const Nav: React.FC = () => {
 
           <DropdownMenuContent className="w-40">
             <DropdownMenuItem>
-              <Link href="/courses" className="w-full">
-                Cursos
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link href="/favorites" className="w-full">
+              <Link href="/favorites" className="w-full text-base">
                 Favoritos
               </Link>
             </DropdownMenuItem>

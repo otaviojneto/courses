@@ -43,8 +43,8 @@ const CourseCard: React.FC<Course> = ({ id, title, description }) => {
 
         <div className="mt-2">
           <Link href={linkSubscribed} className="inline-block w-full">
-            <Button size="sm" variant={subscribed ? "default" : "outline"}>
-              {subscribed ? "Acessar Curso" : "Ver Detalhes"}
+            <Button size="sm" variant="default">
+              Acessar Curso
             </Button>
           </Link>
         </div>

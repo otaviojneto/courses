@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useCourseStore } from "@/stores/CourseStore";
+import { useCourseDetails } from "@/hooks/useCourseDetails";
 import { Course } from "@/types";
 import { formatDate } from "@/utils/formatDate";
 import { formatPrice } from "@/utils/formatPrice";
@@ -27,9 +27,9 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
   course,
   dateJoined,
 }) => {
-  const { purchasedCourses, toggleFavorite, favorites } = useCourseStore();
-  const isPurchased = purchasedCourses.includes(course.id);
-  const isFavorite = favorites.includes(course.id);
+  const { handleFavoriteToggle, isFavorite, isPurchased } = useCourseDetails(
+    course.id
+  );
 
   return (
     <div className="pt-10">
@@ -47,9 +47,9 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
 
       <div className="bg-card border border-b-gray-200 p-4 rounded">
         <div className="flex justify-between items-start">
-          <h1 className="text-2xl font-bold mb-4">{course.title}</h1>
+          <h1 className="text-xl font-bold mb-4 md:text-2xl">{course.title}</h1>
           <button
-            onClick={() => toggleFavorite(course.id)}
+            onClick={handleFavoriteToggle}
             className="p-1 hover:bg-gray-100 rounded-full transition-colors"
           >
             <Image

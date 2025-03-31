@@ -1,7 +1,8 @@
+import { Nav } from "@/components/Nav";
+import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/globals.css";
-import { Nav } from "@/components/Nav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,6 +36,7 @@ const RootLayout = ({
           <Nav />
         </header>
         <div className="container">{children}</div>
+        <Toaster />
       </body>
     </html>
   );
