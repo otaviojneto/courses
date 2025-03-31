@@ -26,7 +26,7 @@ const CourseCard: React.FC<Course> = ({ id, title, description }) => {
             {title}
           </h3>
           {subscribed && (
-            <Badge variant="secondary" className="shrink-0">
+            <Badge variant="destructive" className="shrink-0">
               Adquirido
             </Badge>
           )}

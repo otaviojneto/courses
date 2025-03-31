@@ -11,9 +11,13 @@ import {
 import { Button } from "@/components/Ui/button";
 import { useCourseStore } from "@/stores/CourseStore";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import ReactPlayerProps from "react-player";
+import favorireHeart from "../../../../../public/icons/heartFavorite.svg";
+import favorireHeartOutlined from "../../../../../public/icons/heartFavoriteOutlined.svg";
+import { useCourseDetails } from "@/hooks/useCourseDetails";
 
 // Carrega o ReactPlayer apenas no client-side
 const ReactPlayer = dynamic(() => import("react-player"), {
@@ -30,6 +34,7 @@ const CoursePlayer: React.FC = () => {
   const playerRef = useRef<ReactPlayerProps>(null);
   const { id } = params;
   const courseId = Number(id);
+  const { handleFavoriteToggle, isFavorite } = useCourseDetails(courseId);
 
   const course = courses.find((c) => c.id === courseId);
   const videoId = user.courses.find(
@@ -57,7 +62,6 @@ const CoursePlayer: React.FC = () => {
       }
     }
   };
-
   const handleReset = () => {
     updateProgress(courseId, 0);
 
@@ -95,7 +99,21 @@ const CoursePlayer: React.FC = () => {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <h1 className="text-xl font-semibold mb-4">{course?.title}</h1>
+      <div className="flex justify-between items-start">
+        <h1 className="text-xl font-semibold mb-4">{course?.title}</h1>
+        <button
+          onClick={handleFavoriteToggle}
+          className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+        >
+          <Image
+            width={24}
+            height={24}
+            src={isFavorite ? favorireHeart : favorireHeartOutlined}
+            className="cursor-pointer"
+            alt="favorite"
+          />
+        </button>
+      </div>
       <div className="aspect-video bg-black rounded-lg overflow-hidden">
         <ReactPlayer
           ref={playerRef}
