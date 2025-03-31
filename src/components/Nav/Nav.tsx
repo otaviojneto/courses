@@ -1,34 +1,27 @@
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
+"use client";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-// Mock de dados do usuário (substitua pelo seu próprio contexto ou auth)
-const user = {
-  name: "John Doe",
-  email: "john@example.com",
-};
+import { useCourseStore } from "@/stores/CourseStore";
+import { getInitials } from "@/utils/getInitials";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useState } from "react";
 
 const Nav: React.FC = () => {
-  const getInitials = (name: string) => {
-    const names = name.split(" ");
-    return names
-      .map((n) => n[0])
-      .join("")
-      .toUpperCase();
-  };
+  const [isOpen, setIsOpen] = useState(false);
+  const { user } = useCourseStore();
 
   return (
     <nav className="bg-white shadow-sm py-4 fixed w-full z-50">
       <div className="container flex items-center justify-between relative">
         <Link href="/courses">
           <Image
-            src="/brandPermaneo.svg"
+            src="/icons/brandPermaneo.svg"
             alt="Home"
             width={40}
             height={40}
@@ -36,30 +29,41 @@ const Nav: React.FC = () => {
           />
         </Link>
 
-        <div>
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center gap-2 outline-none">
-              <div className="w-10 h-10 bg-[#0F172A] rounded-full flex items-center justify-center text-white font-medium">
-                {getInitials(user.name)}
-              </div>
+        <DropdownMenu onOpenChange={setIsOpen}>
+          <DropdownMenuTrigger
+            className={`flex items-center gap-2 outline-none px-3 py-1 rounded-3xl transition-colors
+    ${isOpen ? "bg-gray-100 " : "hover:bg-gray-100"}`}
+          >
+            <div className="w-10 h-10 bg-[#0F172A] rounded-full flex items-center justify-center text-white font-medium">
+              {getInitials(user.name)}
+            </div>
 
-              <span className="font-medium text-gray-700">{user.name}</span>
-            </DropdownMenuTrigger>
+            <span className="font-medium text-gray-700">{user.name}</span>
 
-            <DropdownMenuContent className="w-40">
-              <DropdownMenuItem>
-                <Link href="/courses" className="w-full">
-                  Cursos
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href="/favorites" className="w-full">
-                  Favoritos
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+            <Image
+              src="/icons/chevronDown.svg"
+              alt="Home"
+              width={12}
+              height={12}
+              className={`transition-transform ${
+                isOpen ? "rotate-180" : "rotate-0"
+              }`}
+            />
+          </DropdownMenuTrigger>
+
+          <DropdownMenuContent className="w-40">
+            <DropdownMenuItem>
+              <Link href="/courses" className="w-full">
+                Cursos
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href="/favorites" className="w-full">
+                Favoritos
+              </Link>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </nav>
   );

@@ -7,8 +7,8 @@ import { formatDate } from "@/utils/formatDate";
 import { formatPrice } from "@/utils/formatPrice";
 import Image from "next/image";
 import Link from "next/link";
-import favorireHeart from "../../../public/heartFavorite.svg";
-import favorireHeartOutlined from "../../../public/heartFavoriteOutlined.svg";
+import favorireHeart from "../../../public/icons/heartFavorite.svg";
+import favorireHeartOutlined from "../../../public/icons/heartFavoriteOutlined.svg";
 import {
   Breadcrumb,
   BreadcrumbItem,
