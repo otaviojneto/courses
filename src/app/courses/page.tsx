@@ -1,8 +1,8 @@
 "use client";
 
 import { CourseCard } from "@/components/CourseCard";
-import { Input } from "@/components/Ui/input";
-import { Toggle } from "@/components/Ui/toggle";
+import { Input } from "@/components/REfect/input";
+import { Toggle } from "@/components/REfect/toggle";
 import { useCourseStore } from "@/stores/CourseStore";
 import Image from "next/image";
 import { useState } from "react";

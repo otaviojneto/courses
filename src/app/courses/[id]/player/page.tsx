@@ -7,8 +7,8 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/Ui/breadcrumb";
-import { Button } from "@/components/Ui/button";
+} from "@/components/REfect/breadcrumb";
+import { Button } from "@/components/REfect/button";
 import { useCourseStore } from "@/stores/CourseStore";
 import dynamic from "next/dynamic";
 import Image from "next/image";

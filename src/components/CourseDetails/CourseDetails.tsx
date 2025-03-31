@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/Ui/button";
+import { Button } from "@/components/REfect/button";
 import { useCourseDetails } from "@/hooks/useCourseDetails";
 import { Course } from "@/types";
 import { formatDate } from "@/utils/formatDate";
@@ -17,7 +17,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "../Ui/breadcrumb";
+} from "../REfect/breadcrumb";
 
 export type CourseDetailsProps = {
   course: Course;
