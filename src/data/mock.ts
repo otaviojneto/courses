@@ -90,14 +90,17 @@ export const user: User = {
     {
       courseId: 1,
       dateJoined: "2023-02-15",
+      player: "4p7axLXXBGU&ab_channel=HashtagProgramação",
     },
     {
       courseId: 3,
       dateJoined: "2023-03-10",
+      player: "6YwbZbHRQ8w&ab_channel=AttekitaDev",
     },
     {
       courseId: 5,
       dateJoined: "2023-04-05",
+      player: "Qef5aOKI81o&ab_channel=ViniciusRaphael",
     },
   ],
 };

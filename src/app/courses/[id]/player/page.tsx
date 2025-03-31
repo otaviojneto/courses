@@ -1,52 +1,139 @@
 "use client";
 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import { useCourseStore } from "@/stores/CourseStore";
-import { useRouter, useParams } from "next/navigation";
-import ReactPlayer from "react-player";
+import dynamic from "next/dynamic";
+import { useParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import ReactPlayerProps from "react-player";
 
-export default function CoursePlayer() {
-  const router = useRouter();
+// Carrega o ReactPlayer apenas no client-side
+const ReactPlayer = dynamic(() => import("react-player"), {
+  ssr: false,
+  loading: () => (
+    <div className="aspect-video bg-black rounded-lg overflow-hidden" />
+  ),
+});
+
+const CoursePlayer: React.FC = () => {
+  const { courses, user, updateProgress } = useCourseStore();
+  const [origin, setOrigin] = useState("");
   const params = useParams();
+  const playerRef = useRef<ReactPlayerProps>(null);
   const { id } = params;
-
   const courseId = Number(id);
-  const { courses, updateProgress } = useCourseStore();
+
   const course = courses.find((c) => c.id === courseId);
+  const videoId = user.courses.find(
+    (item) => item.courseId === courseId
+  )?.player;
+
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
 
   const handleProgress = (progress: { played: number }) => {
     updateProgress(courseId, progress.played * 100);
   };
 
-  if (!course) {
-    router.push("/not-found");
-    return null;
-  }
+  const handleContinue = () => {
+    if (playerRef.current) {
+      const internalPlayer = playerRef.current.getInternalPlayer();
+
+      if (internalPlayer && typeof internalPlayer.playVideo === "function") {
+        internalPlayer.playVideo();
+      }
+      // Vídeo local/HTML5
+      else if (internalPlayer && typeof internalPlayer.play === "function") {
+        internalPlayer.play();
+      }
+    }
+  };
+
+  const handleReset = () => {
+    updateProgress(courseId, 0);
+
+    if (playerRef.current) {
+      // Volta para o início e pausa
+      playerRef.current.seekTo(0, "seconds");
+
+      // Controle específico para YouTube
+      const internalPlayer = playerRef.current.getInternalPlayer();
+
+      // Garante que o vídeo não auto-inicia
+      if (internalPlayer && typeof internalPlayer.pauseVideo === "function") {
+        internalPlayer.pauseVideo();
+      }
+    }
+  };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <div className="mb-6">
-        <Button variant="ghost" onClick={() => router.back()}>
-          ← Voltar para o curso
-        </Button>
-      </div>
+    <div className="pt-10">
+      <Breadcrumb className="mb-10">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/courses">Cursos</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href={`/courses/${id}`}>
+              Detalhes do curso
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Player do Curso</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
+      <h1 className="text-xl font-semibold mb-4">{course?.title}</h1>
       <div className="aspect-video bg-black rounded-lg overflow-hidden">
         <ReactPlayer
-          url="/sample-video.mp4"
+          ref={playerRef}
+          url={
+            videoId
+              ? `https://www.youtube.com/watch?v=${videoId}`
+              : "/sample-video.mp4"
+          }
           width="100%"
           height="100%"
           controls
           onProgress={handleProgress}
+          config={{
+            youtube: {
+              playerVars: {
+                enablejsapi: 1,
+                origin: origin,
+              },
+            },
+          }}
         />
       </div>
 
       <div className="mt-6 flex gap-4 justify-end">
-        <Button variant="outline" onClick={() => updateProgress(courseId, 0)}>
+        <Button
+          className="w-full sm:w-auto"
+          fullWidth
+          variant="outline"
+          onClick={handleReset}
+        >
           Reiniciar Curso
         </Button>
-        <Button onClick={() => router.push("/")}>Concluir</Button>
+        <Button className="w-full sm:w-auto" fullWidth onClick={handleContinue}>
+          Continuar Curso
+        </Button>
       </div>
     </div>
   );
-}
+};
+
+export default CoursePlayer;

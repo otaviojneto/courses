@@ -15,4 +15,5 @@ export type User = {
 type Courses = {
   courseId: number;
   dateJoined: string;
+  player?: string;
 };

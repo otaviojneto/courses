@@ -1,5 +1,7 @@
 import { redirect } from "next/navigation";
 
-export default function Home() {
-  redirect("/courses"); // Faz o Redirecionamento imediato
-}
+const Home: React.FC = () => {
+  redirect("/courses"); // Faz o Redirecionamento imediato, pois não tem home
+};
+
+export default Home;
