@@ -1,6 +1,6 @@
 # Plataforma disponível no Vercel
 
-![Link Preview](https://courses-liart.vercel.app/courses) 
+Link para visualição: [Preview](https://courses-liart.vercel.app/courses) 
 
 ## 🚀 Começando
 
