@@ -1,4 +1,4 @@
-# Plataforma disponível no Vercel
+# Teste técnico disponível no Vercel
 
 Link para visualição: [Preview](https://courses-liart.vercel.app/courses) 
 
@@ -17,6 +17,9 @@ Siga estas instruções para obter uma cópia do projeto em operação na sua m�
 1. **Clonar o repositório**
 ```bash
 git clone https://github.com/seu-usuario/courses.git
+```
+
+```bash
 cd courses
 ```
 
