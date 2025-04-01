@@ -1,14 +1,7 @@
 "use client";
 
+import CourseBreadcrumbs from "@/components/CourseBreadcrumbs";
 import { CourseCard } from "@/components/CourseCard";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/Ui/breadcrumb";
 import { Button } from "@/components/Ui/button";
 import { useCourseStore } from "@/stores/CourseStore";
 import Image from "next/image";
@@ -20,19 +13,14 @@ const CoursesPage: React.FC = () => {
   const favoritesCourses = courses?.filter((course) =>
     favorites.includes(course.id)
   );
+
+  const breadCrumbs = [
+    { label: "Cursos", href: "/courses" },
+    { label: "Favotitos" },
+  ];
   return (
     <div className="pt-10">
-      <Breadcrumb className="mb-10">
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/courses">Cursos</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Favotitos</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <CourseBreadcrumbs items={breadCrumbs} />
 
       <h1 className="text-2xl font-bold mb-3">Cursos Favoritos</h1>
       {favoritesCourses.length > 0 ? (

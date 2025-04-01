@@ -7,17 +7,9 @@ import { formatDate } from "@/utils/formatDate";
 import { formatPrice } from "@/utils/formatPrice";
 import Image from "next/image";
 import Link from "next/link";
-import favorireHeart from "../../../public/icons/heartFavorite.svg";
-import favorireHeartOutlined from "../../../public/icons/heartFavoriteOutlined.svg";
 import chevronRight from "../../../public/icons/chevronRight.svg";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "../Ui/breadcrumb";
+import CourseBreadcrumbs from "../CourseBreadcrumbs";
+import FavoriteButton from "../FavoriteButton";
 
 export type CourseDetailsProps = {
   course: Course;
@@ -32,35 +24,23 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
     course.id
   );
 
+  const breadCrumbs = [
+    { label: "Cursos", href: "/courses" },
+    { label: "Detalhes do curso" },
+  ];
+
   return (
     <div className="pt-10">
-      <Breadcrumb className="mb-10">
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/courses">Cursos</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Detalhes do curso</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <CourseBreadcrumbs items={breadCrumbs} />
 
       <div className="bg-card border border-b-gray-200 p-4 rounded">
         <div className="flex justify-between items-start">
           <h1 className="text-xl font-bold mb-4 md:text-2xl">{course.title}</h1>
-          <button
-            onClick={handleFavoriteToggle}
-            className="p-1 hover:bg-gray-100 rounded-full transition-colors"
-          >
-            <Image
-              width={24}
-              height={24}
-              src={isFavorite ? favorireHeart : favorireHeartOutlined}
-              className="cursor-pointer"
-              alt="favorite"
-            />
-          </button>
+
+          <FavoriteButton
+            isFavorite={isFavorite}
+            onToggle={handleFavoriteToggle}
+          />
         </div>
         <p className="text-muted-foreground mb-6">{course.description}</p>
 

@@ -1,23 +1,14 @@
 "use client";
 
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/Ui/breadcrumb";
+import CourseBreadcrumbs from "@/components/CourseBreadcrumbs";
+import FavoriteButton from "@/components/FavoriteButton";
 import { Button } from "@/components/Ui/button";
+import { useCourseDetails } from "@/hooks/useCourseDetails";
 import { useCourseStore } from "@/stores/CourseStore";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import ReactPlayerProps from "react-player";
-import favorireHeart from "../../../../../public/icons/heartFavorite.svg";
-import favorireHeartOutlined from "../../../../../public/icons/heartFavoriteOutlined.svg";
-import { useCourseDetails } from "@/hooks/useCourseDetails";
 
 // Carrega o ReactPlayer apenas no client-side
 const ReactPlayer = dynamic(() => import("react-player"), {
@@ -28,13 +19,13 @@ const ReactPlayer = dynamic(() => import("react-player"), {
 });
 
 const CoursePlayer: React.FC = () => {
-  const { courses, user, updateProgress } = useCourseStore();
-  const [origin, setOrigin] = useState("");
   const params = useParams();
-  const playerRef = useRef<ReactPlayerProps>(null);
   const { id } = params;
   const courseId = Number(id);
+  const { courses, user, updateProgress } = useCourseStore();
   const { handleFavoriteToggle, isFavorite } = useCourseDetails(courseId);
+  const [origin, setOrigin] = useState("");
+  const playerRef = useRef<ReactPlayerProps>(null);
 
   const course = courses.find((c) => c.id === courseId);
   const videoId = user.courses.find(
@@ -78,41 +69,23 @@ const CoursePlayer: React.FC = () => {
       }
     }
   };
+  const breadCrumbs = [
+    { label: "Cursos", href: "/courses" },
+    { label: "Detalhes do curso", href: `/courses/${id}` },
+    { label: "Player do Curso" },
+  ];
 
   return (
     <div className="pt-10">
-      <Breadcrumb className="mb-10">
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/courses">Cursos</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink href={`/courses/${id}`}>
-              Detalhes do curso
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Player do Curso</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <CourseBreadcrumbs items={breadCrumbs} />
 
       <div className="flex justify-between items-start">
         <h1 className="text-xl font-semibold mb-4">{course?.title}</h1>
-        <button
-          onClick={handleFavoriteToggle}
-          className="p-1 hover:bg-gray-100 rounded-full transition-colors"
-        >
-          <Image
-            width={24}
-            height={24}
-            src={isFavorite ? favorireHeart : favorireHeartOutlined}
-            className="cursor-pointer"
-            alt="favorite"
-          />
-        </button>
+
+        <FavoriteButton
+          isFavorite={isFavorite}
+          onToggle={handleFavoriteToggle}
+        />
       </div>
       <div className="aspect-video bg-black rounded-lg overflow-hidden">
         <ReactPlayer
