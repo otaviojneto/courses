@@ -23,12 +23,17 @@ git clone https://github.com/seu-usuario/courses.git
 cd courses
 ```
 
-2. **Rodando o projeto**
+2. **Instalando as dependências do projeto**
+```bash
+yarn install ou npm install
+```
+
+3. **Rodando o projeto**
 ```bash
 yarn dev ou npm run dev
 ```
 
-3. **Rodando os testes**
+4. **Rodando os testes**
 ```bash
 yarn test ou npm run test
 ````

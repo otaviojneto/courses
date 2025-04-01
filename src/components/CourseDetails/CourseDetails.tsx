@@ -44,7 +44,7 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
         </div>
         <p className="text-muted-foreground mb-6">{course.description}</p>
 
-        <div className="flex items-start justify-between">
+        <div className="flex flex-col items-start justify-between w-full sm:w-auto sm:flex-row">
           <div>
             <p className="text-xl font-bold">{formatPrice(course.price)}</p>
             {isPurchased ? (
@@ -67,7 +67,10 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
           </div>
 
           {isPurchased ? (
-            <Button asChild className="group transition-all duration-300">
+            <Button
+              asChild
+              className="group transition-all duration-300 mt-3 w-full sm:w-auto sm:mt-0"
+            >
               <Link href={`/courses/${course.id}/player`}>
                 Continuar Estudando
                 <Image
@@ -81,7 +84,7 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({
             </Button>
           ) : (
             <Button
-              className="group transition-all duration-300"
+              className="group transition-all duration-300  mt-3 w-full sm:w-auto sm:mt-0"
               onClick={() => alert("compar curso")}
             >
               Comprar Curso
