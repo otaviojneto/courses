@@ -1,16 +1,32 @@
-Este é o projeto no vercel [Cursos](https://courses-liart.vercel.app/courses) 
+# Plataforma disponível no Vercel
 
-## Começando a Rodar o projeto
+![Link Preview](https://courses-liart.vercel.app/courses) 
 
-First, run the development server:
+## 🚀 Começando
 
+Siga estas instruções para obter uma cópia do projeto em operação na sua máquina local.
+
+### 📋 Pré-requisitos
+
+- Node.js (v20.15.0 ou superior)
+- npm (v10.7.0 ou superior) ou yarn (v1.22.22 ou superior)
+- Git 
+
+### 🔧 Instalação
+
+1. **Clonar o repositório**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/seu-usuario/courses.git
+cd courses
 ```
+
+2. **Rodando o projeto**
+```bash
+yarn dev ou npm run dev
+```
+
+3. **Rodando os testes**
+```bash
+yarn test ou npm run test
+````
 
