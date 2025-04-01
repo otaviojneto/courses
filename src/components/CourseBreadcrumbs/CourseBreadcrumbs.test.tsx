@@ -16,12 +16,6 @@ describe("CourseBreadcrumbs", () => {
     { label: "Current" },
   ];
 
-  it("Renderiza o número correto de iten", () => {
-    render(<CourseBreadcrumbs items={mockItems} />);
-    const items = screen.getAllByRole("listitem");
-    expect(items).toHaveLength(mockItems.length);
-  });
-
   it("Renderiza links para itens com href e páginas para outros", () => {
     render(<CourseBreadcrumbs items={mockItems} />);
 

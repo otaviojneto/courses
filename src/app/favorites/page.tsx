@@ -9,10 +9,14 @@ import Link from "next/link";
 import heart from "../../../public/icons/heartFavoriteOutlined.svg";
 
 const CoursesPage: React.FC = () => {
-  const { favorites, courses } = useCourseStore();
-  const favoritesCourses = courses?.filter((course) =>
-    favorites.includes(course.id)
-  );
+  const { favorites, courses, purchasedCourses } = useCourseStore();
+  const favoritesCourses = courses
+    ?.filter((course) => favorites.includes(course.id))
+    .sort(
+      (a, b) =>
+        Number(purchasedCourses.includes(b.id)) -
+        Number(purchasedCourses.includes(a.id))
+    );
 
   const breadCrumbs = [
     { label: "Cursos", href: "/courses" },
